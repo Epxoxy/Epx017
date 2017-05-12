@@ -1,0 +1,159 @@
+﻿<Page x:Class="Example.EpxoxyEx"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:sys="clr-namespace:System.Collections;assembly=mscorlib"
+      xmlns:xoxy="http://Epxoxy.org/controls"
+      xmlns:preoxy="http://Epxoxy.org/precontrols"
+      xmlns:local="clr-namespace:Example"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="400"
+      Title="Epxoxy">
+    <AdornerDecorator>
+        <preoxy:SplitView x:Name="splitview" OpenPaneLength="256" Background="Transparent">
+            <preoxy:SplitView.Pane>
+                <Rectangle Fill="AliceBlue" />
+            </preoxy:SplitView.Pane>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
+                    <ItemsControl HorizontalContentAlignment="Left" MinWidth="300">
+                        <xoxy:ToggleSwitch Content="IsPaneOpen" IsChecked="{Binding IsPaneOpen, ElementName=splitview}" />
+                        <CheckBox Margin="7,0" Padding="0,7" IsChecked="{Binding IsLightDismissEnabled, ElementName=splitview}" Style="{StaticResource AnimationCheckBox}" Content="IsLightDismissEnabled"/>
+                        <CheckBox Margin="7,0" Padding="0,7" IsChecked="{Binding EnableInlineAnimation, ElementName=splitview}" Style="{StaticResource AnimationCheckBox}" Content="EnableInlineAnimation"/>
+                        <CheckBox Margin="7,0" Padding="0,7" IsChecked="{Binding IsOpen, ElementName=mark}" Style="{StaticResource AnimationCheckBox}" Content="Open Mark"/>
+                        <WrapPanel>
+                            <Button Content="{Binding CurrentStateName, ElementName=splitview}" Style="{StaticResource FloatBtnStyle}" Padding="7" Margin="3"
+                                    Command="{x:Static preoxy:SplitView.ToNextDisplayModeCommand}" CommandTarget="{Binding ElementName=splitview}"/>
+                            <Button Content="WindowsTenButton" Style="{StaticResource WinTenBtnStyle}" Padding="7" Margin="3" Click="Button_Click"/>
+                            <Button Content="Color picker window" Style="{StaticResource WinTenBtnStyle}" Padding="7" Margin="3" Click="colorPickerBtnClick"/>
+                            <Button Content="Message dialog window" Style="{StaticResource WinTenBtnStyle}" Padding="7" Margin="3" Click="messageDialogBtnClick"/>
+                            <Button Content="Content dialog" Style="{StaticResource WinTenBtnStyle}" Padding="7" Margin="3" Click="asyncContentDialogBtnClick"/>
+                            <Button Content="Picker dialog" Style="{StaticResource WinTenBtnStyle}" Padding="7" Margin="3" Click="asyncPickerDialogBtnClick"/>
+                            <Button Content="TransparentToGray" Padding="7" Margin="3"  BorderThickness="1" BorderBrush="LightGray"
+                                    Style="{StaticResource TransparentToGrayButtonStyle}"/>
+                            <xoxy:ToggleButtonEx OffContent="ToggleButtonEx off" OnContent="ToggleButtonEx on" Padding="7" Margin="3"/>
+                        </WrapPanel>
+                        <Expander Padding="4,0" Style="{StaticResource SimpleAnimateExpanderStyle}"
+                                  BorderBrush="LightGray" BorderThickness="1" Margin="4"
+                                  Header="Calendar">
+                            <ItemsControl>
+                                <DatePicker Style="{StaticResource MDLightDatePicker}" Width="120" HorizontalAlignment="Center"/>
+                                <Calendar Style="{StaticResource MDLightCalendarPortrait}"/>
+                            </ItemsControl>
+                        </Expander>
+                        <Expander Padding="4,0" Style="{StaticResource SimpleExpanderStyle}"
+                                  BorderBrush="LightGray" BorderThickness="1" Margin="4"
+                                  Header="Checkable Button">
+                            <ItemsControl>
+                                <CheckBox Padding="0,4" Content="Normal CheckBox" IsChecked="True" Style="{StaticResource SimpleCheckBoxStyle}" Margin="2"/>
+                                <RadioButton Padding="0,4" Content="Hello" Style="{StaticResource WindowsTenRadioButtonLightStyle}" Margin="2"/>
+                                <RadioButton Content="SelectedFlagRadioButton" Style="{StaticResource SelectedFlagRadioButtonStyle}" Width="Auto" Padding="0,7"
+                                             VerticalContentAlignment="Center" Margin="2"/>
+                                <ToggleButton x:Name="toggle" Margin="0,4" Padding="0,7" Content="Toggle" Style="{StaticResource DarkToggleButtonStyle}"/>
+                                <ToggleButton IsEnabled="{Binding IsChecked, ElementName=toggle}" Margin="0,4" Padding="0,7" Content="Toggle" Style="{StaticResource DarkToggleButtonStyle}"/>
+                            </ItemsControl>
+                        </Expander>
+                        <Expander Padding="4,0" Style="{StaticResource SimpleExpanderStyle}"
+                                  BorderBrush="LightGray" BorderThickness="1" Margin="4"
+                                  Header="TextControl">
+                            <ItemsControl>
+                                <TextBox Style="{StaticResource PlaceHolderTextBoxStyle}" Padding="0,7" Margin="3" BorderThickness="0,0,0,1"
+                                 xoxy:PlaceHolder.Content="PlaceHolderTextBoxStyle" 
+                                 xoxy:PlaceHolder.UnderlineBrush="SkyBlue"
+                                 Text="{Binding Text, ElementName=t2}"/>
+                                <TextBox x:Name="t2" Style="{StaticResource FloatingPlaceHolderTextBoxStyle}" Padding="0,7" Margin="3"
+                                 BorderThickness="0,0,0,1"
+                                 xoxy:PlaceHolder.Content="FloatingPlaceHolderTextBoxStyle"
+                                 xoxy:PlaceHolder.UnderlineBrush="SkyBlue"/>
+                                <xoxy:NumericTextBox x:Name="num" Style="{StaticResource FloatingPlaceHolderTextBoxStyle}" Padding="0,7" Margin="3"
+                                             BorderThickness="0,0,0,1"
+                                             xoxy:PlaceHolder.Content="NumberOnly"
+                                             AcceptDecimal="{Binding IsChecked, ElementName=decimal}"
+                                             AcceptNegative="{Binding IsChecked, ElementName=negative}"
+                                             xoxy:PlaceHolder.UnderlineBrush="SkyBlue"/>
+                                <xoxy:ToggleSwitch x:Name="negative" Content="Accept Negative" />
+                                <xoxy:ToggleSwitch x:Name="decimal" Content="Accept Decimal" />
+                                <xoxy:NumericUpDown Value="20" Maximum="100" Minimum="-100"/>
+                                <PasswordBox Padding="0,7" Margin="3" BorderThickness="0,0,0,1"
+                                     xoxy:PlaceHolder.Content="PasswordBoxStyle" />
+                                <PasswordBox Padding="0,7" Margin="3" Style="{StaticResource FloatingPasswordBoxStyle}" 
+                                     xoxy:PlaceHolder.Content="FloatingPasswordBoxStyle"/>
+                            </ItemsControl>
+                        </Expander>
+                        <Expander Padding="4,0" Style="{StaticResource SimpleAnimateExpanderStyle}"
+                                  BorderBrush="LightGray" BorderThickness="1" Margin="4"
+                                  Header="BarControl">
+                            <ItemsControl>
+                                <xoxy:ToggleSwitch x:Name="openswitch" Content="IsOpen" />
+                                <xoxy:ToggleSwitch x:Name="stickywitch" Content="IsSticky" />
+                                <WrapPanel>
+                                    <ComboBox x:Name="placeMode" Grid.Column="1" SelectedIndex="1" MinWidth="90" VerticalAlignment="Bottom"
+                                      Style="{StaticResource ComboBoxNotShadowStyle}" Margin="4">
+                                        <local:CommandPlace>Top</local:CommandPlace>
+                                        <local:CommandPlace>Bottom</local:CommandPlace>
+                                    </ComboBox>
+                                    <ComboBox x:Name="closemode" Grid.Column="1" SelectedIndex="0" MinWidth="90" VerticalAlignment="Bottom"
+                                      Style="{StaticResource ComboBoxNotShadowStyle}" Margin="4">
+                                        <local:BarClosedDisplayMode>Compact</local:BarClosedDisplayMode>
+                                        <local:BarClosedDisplayMode>Minimal</local:BarClosedDisplayMode>
+                                        <local:BarClosedDisplayMode>Hidden</local:BarClosedDisplayMode>
+                                    </ComboBox>
+                                </WrapPanel>
+                            </ItemsControl>
+                        </Expander>
+                        <WrapPanel>
+                            <ComboBox Grid.Column="1" SelectedIndex="1" MinWidth="90" VerticalAlignment="Bottom"
+                                      Style="{StaticResource ComboBoxStyle}" Margin="4">
+                                <ComboBoxItem>Hello</ComboBoxItem>
+                                <ComboBoxItem>Hello</ComboBoxItem>
+                            </ComboBox>
+                            <ComboBox Grid.Column="1" MinWidth="90" VerticalAlignment="Bottom"
+                                      Style="{StaticResource ComboBoxStyle}" Margin="4" IsEditable="True" Padding="0,4"
+                                      xoxy:PlaceHolder.Content="Editable ComboBox">
+                                <ComboBoxItem>Hello</ComboBoxItem>
+                                <ComboBoxItem>Hello</ComboBoxItem>
+                            </ComboBox>
+                        </WrapPanel>
+                        <Slider Style="{StaticResource ValueOverlayStyleSlider}" Orientation="Horizontal" Margin="3"/>
+                        <Slider Style="{StaticResource MDStyleSlider}" Orientation="Horizontal" Margin="3"/>
+                        <xoxy:ColorSlider VerticalAlignment="Bottom" FromColor="SkyBlue" ToColor="AliceBlue"/>
+                    </ItemsControl>
+                </ScrollViewer>
+                <local:CommandBar Grid.Row="1" IsOpen="{Binding IsChecked, ElementName=openswitch}" Background="#f4f4f4" 
+                              IsSticky="{Binding IsChecked, ElementName=stickywitch}"
+                              ClosedDisplayMode="{Binding SelectedItem, ElementName=closemode}"
+                              Place="{Binding SelectedValue, ElementName=placeMode}"
+                              VerticalAlignment="Top"
+                              VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch">
+                    <local:CommandBar.PrimaryCommands>
+                        <local:AppBarButton Label="Back">
+                            <local:AppBarButton.Icon>
+                                <Path Stroke="Black" Data="M4,0 L0,2 4,4" Stretch="Fill" Height="18" Width="14" SnapsToDevicePixels="True"/>
+                            </local:AppBarButton.Icon>
+                        </local:AppBarButton>
+                        <local:AppBarToggleButton Label="Toggle" Icon="Icon2"></local:AppBarToggleButton>
+                        <local:AppBarButton Label="AppBar2" Icon="Icon2"/>
+                    </local:CommandBar.PrimaryCommands>
+                    <local:CommandBar.SecondaryCommands>
+                        <local:AppBarButton Label="Hello2" Icon="Icon2"></local:AppBarButton>
+                        <local:AppBarButton Label="Hello world2" Icon="Icon2"></local:AppBarButton>
+                        <local:AppBarToggleButton Label="AppBarToggleButton" Icon="Icon2"></local:AppBarToggleButton>
+                        <local:AppBarToggleButton Label="AppBarToggleButton2" Icon="Icon2"></local:AppBarToggleButton>
+                        <local:AppBarToggleButton Label="Hello world1" Icon="Icon2"></local:AppBarToggleButton>
+                        <local:AppBarToggleButton Label="Hello2" Icon="Icon2"></local:AppBarToggleButton>
+                    </local:CommandBar.SecondaryCommands>
+                    What's it?
+                </local:CommandBar>
+                <xoxy:MaskControl x:Name="mark" IsOpen="False">
+                    <Rectangle Fill="White" Width="200"/>
+                </xoxy:MaskControl>
+            </Grid>
+        </preoxy:SplitView>
+    </AdornerDecorator>
+</Page>

@@ -1,0 +1,509 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Example">
+    <Color x:Key="BarBtn.MouseOver.Color" A="210" R="207" G="207" B="207"/>
+    <Color x:Key="BarBtn.Pressed.Color" A="210" R="184" G="184" B="184"/>
+    <Color x:Key="BarBtn.Disable.Background.Color"  A="210" R="244" G="244" B="244"/>
+    <Color x:Key="BarBtn.Disable.Foreground.Color"  A="210" R="131" G="131" B="131"/>
+    <SolidColorBrush x:Key="BarBtn.Check.Brush" Color="{StaticResource BarBtn.MouseOver.Color}"/>
+    <Style TargetType="{x:Type local:AppBarButton}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="ClickMode" Value="Press" />
+        <Setter Property="IsCompact" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:AppBarButton}">
+                    <Grid Focusable="False">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0:0:0"
+                                                        Storyboard.TargetName="OverBackground"
+                                                        Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)"
+                                                        To="{StaticResource BarBtn.MouseOver.Color}" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed" >
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0:0:0.1" 
+                                                        Storyboard.TargetName="OverBackground"
+                                                        Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)"
+                                                        To="{StaticResource BarBtn.Pressed.Color}" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0:0:0" Storyboard.TargetName="OverBackground"
+                                                        Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" To="{StaticResource BarBtn.Disable.Background.Color}" />
+                                        <ColorAnimation Duration="0:0:0" Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)" To="{StaticResource BarBtn.Disable.Foreground.Color}" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Rectangle x:Name="OverBackground" Fill="{TemplateBinding Background}"/>
+                        <StackPanel x:Name="ContentRoot" MinHeight="{Binding TemplateSettings.CompactLength, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CommandBar}}}">
+                            <ContentControl x:Name="PART_Icon" Content="{TemplateBinding Icon}" 
+                                                Height="20" Margin="0,10,0,4" Focusable="False"
+                                                HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="PART_Label" Text="{TemplateBinding Label}" 
+                                       TextAlignment="Center" TextTrimming="None" TextWrapping="Wrap"
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="4,0,4,6"/>
+                        </StackPanel>
+                        <TextBlock x:Name="OverflowTextLabel" Text="{TemplateBinding Label}" TextAlignment="Left"
+                                       TextWrapping="NoWrap" HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Center" Margin="16,0,12,0"
+                                       Padding="0,5,0,7" Visibility="Collapsed"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsCompact" Value="True"/>
+                                <Condition Property="CompactMode" Value="Label"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_Label" 
+                                                         Storyboard.TargetProperty="Opacity">
+                                            <DiscreteDoubleKeyFrame KeyTime="00:00:00" Value="0" />
+                                            <DiscreteDoubleKeyFrame KeyTime="00:00:00.20" Value="0" />
+                                            <EasingDoubleKeyFrame KeyTime="00:00:00.50" Value="1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.ExitActions>
+                            <Setter Property="Visibility" TargetName="PART_Label" Value="Hidden" />
+                        </MultiTrigger>
+                        <Trigger Property="CompactMode" Value="Icon">
+                            <Setter Property="Visibility" TargetName="OverflowTextLabel" Value="Visible" />
+                            <Setter Property="Visibility" TargetName="ContentRoot" Value="Collapsed" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:AppBarToggleButton}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="ClickMode" Value="Press" />
+        <Setter Property="IsCompact" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:AppBarToggleButton}">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0:0:0" 
+                                                        Storyboard.TargetName="OverBackground" 
+                                                        Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)"
+                                                        To="{StaticResource BarBtn.MouseOver.Color}" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed" >
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0:0:0.1"
+                                                        Storyboard.TargetName="OverBackground" 
+                                                        Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)"
+                                                        To="{StaticResource BarBtn.Pressed.Color}" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0:0:0" 
+                                                        Storyboard.TargetName="OverBackground" 
+                                                        Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" 
+                                                        To="{StaticResource BarBtn.Disable.Background.Color}" />
+                                        <ColorAnimation Duration="0:0:0" 
+                                                        Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)" 
+                                                        To="{StaticResource BarBtn.Disable.Foreground.Color}" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Rectangle x:Name="OverBackground" Fill="{TemplateBinding Background}"/>
+                        <StackPanel x:Name="ContentRoot" MinHeight="{Binding TemplateSettings.CompactLength, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CommandBar}}}">
+                            <ContentControl x:Name="PART_Icon" Content="{TemplateBinding Icon}" 
+                                                Height="20" Margin="0,10,0,4" Focusable="False"
+                                                HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="PART_Label" Text="{TemplateBinding Label}" 
+                                       TextAlignment="Center" TextTrimming="None" TextWrapping="Wrap"
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="4,0,4,6"/>
+                        </StackPanel>
+                        <Grid x:Name="OverflowContentRoot" Focusable="False" Visibility="Collapsed">
+                            <Path x:Name="CheckHolder" Data="M0,5 L6,10 14,0" Stroke="#1e1e1e" Focusable="False"
+                                  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,6,12,6" Visibility="Collapsed"/>
+                            <TextBlock x:Name="OverflowTextLabel" Text="{TemplateBinding Label}"
+                                       TextAlignment="Left" TextTrimming="None" TextWrapping="Wrap"
+                                       Margin="38,0,12,0" Padding="0,5,0,7"
+                                       HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                       Focusable="False"/>
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsChecked" Value="True"/>
+                                <Condition Property="CompactMode" Value="Label"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Fill" TargetName="OverBackground" Value="{StaticResource BarBtn.Check.Brush}" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsChecked" Value="True"/>
+                                <Condition Property="CompactMode" Value="Icon"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Visibility" TargetName="CheckHolder" Value="Visible" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsCompact" Value="True"/>
+                                <Condition Property="CompactMode" Value="Label"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_Label" 
+                                                         Storyboard.TargetProperty="Opacity">
+                                            <DiscreteDoubleKeyFrame KeyTime="00:00:00" Value="0" />
+                                            <DiscreteDoubleKeyFrame KeyTime="00:00:00.20" Value="0" />
+                                            <EasingDoubleKeyFrame KeyTime="00:00:00.50" Value="1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.ExitActions>
+                            <Setter Property="Visibility" TargetName="PART_Label" Value="Hidden" />
+                        </MultiTrigger>
+                        <Trigger Property="CompactMode" Value="Icon">
+                            <Setter Property="Visibility" TargetName="ContentRoot" Value="Collapsed" />
+                            <Setter Property="Visibility" TargetName="OverflowContentRoot" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="MoreButtonStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="ClickMode" Value="Press" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Grid x:Name="ContentRoot" Background="{TemplateBinding Background}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0:0:0" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" To="{StaticResource BarBtn.MouseOver.Color}" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed" >
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0:0:0.1" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" To="{StaticResource BarBtn.Pressed.Color}" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0:0:0" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" To="{StaticResource BarBtn.Disable.Background.Color}" />
+                                        <ColorAnimation Duration="0:0:0" Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)" To="{StaticResource BarBtn.Disable.Foreground.Color}" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Background" TargetName="ContentRoot" Value="{StaticResource BarBtn.Check.Brush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ControlTemplate x:Key="CommandBarTopTemplateKey" TargetType="{x:Type local:CommandBar}">
+        <Grid x:Name="barRoot">
+            <Grid.Resources>
+                <!--<FrameworkElement x:Key="ProxyElement" DataContext="{TemplateBinding TemplateSettings}" />-->
+                <local:ReversalConverter x:Key="reversal" Reversal="True"/>
+                <Storyboard x:Key="OpenStoryboard">
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ClipTransform" Storyboard.TargetProperty="Y">
+                        <EasingDoubleKeyFrame KeyTime="00:00:00.12" Value="{Binding DataContext.OpenLength, ElementName=ProxyElement}"/>
+                    </DoubleAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SecondaryCommandsRoot" Storyboard.TargetProperty="Visibility">
+                        <DiscreteObjectKeyFrame KeyTime="00:00:00.10">
+                            <DiscreteObjectKeyFrame.Value>
+                                <Visibility>Visible</Visibility>
+                            </DiscreteObjectKeyFrame.Value>
+                        </DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
+                    <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.10" Storyboard.TargetName="SecondaryCommandsLayer" 
+                                                               Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)">
+                        <DiscreteDoubleKeyFrame KeyTime="00:00:00" Value="{Binding ActualHeight, ElementName=SecondaryCommandsLayer, Converter={StaticResource reversal}}"/>
+                        <SplineDoubleKeyFrame KeyTime="00:00:0.35" KeySpline="0.1,0.9 0.2,1.0"  Value="0"/>
+                    </DoubleAnimationUsingKeyFrames>
+                </Storyboard>
+                <Storyboard x:Key="CompactStoryboard">
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ClipTransform" Storyboard.TargetProperty="Y">
+                        <EasingDoubleKeyFrame KeyTime="00:00:00.12" Value="{Binding DataContext.CompactLength, ElementName=ProxyElement}"/>
+                    </DoubleAnimationUsingKeyFrames>
+                </Storyboard>
+                <Storyboard x:Key="MinimalStoryboard">
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ClipTransform" Storyboard.TargetProperty="Y">
+                        <EasingDoubleKeyFrame KeyTime="00:00:00.12" Value="{Binding DataContext.MinimalLength, ElementName=ProxyElement}"/>
+                    </DoubleAnimationUsingKeyFrames>
+                </Storyboard>
+                <Storyboard x:Key="HiddenStoryboard">
+                    <DoubleAnimationUsingKeyFrames x:Name="HiddenAnimation" Storyboard.TargetName="ClipTransform" Storyboard.TargetProperty="Y">
+                        <EasingDoubleKeyFrame KeyTime="00:00:00.12" Value="0"/>
+                    </DoubleAnimationUsingKeyFrames>
+                </Storyboard>
+            </Grid.Resources>
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="OpenStates">
+                    <VisualState x:Name="Open" Storyboard="{StaticResource OpenStoryboard}"/>
+                    <VisualState x:Name="Compact" Storyboard="{StaticResource CompactStoryboard}" />
+                    <VisualState x:Name="Minimal" Storyboard="{StaticResource MinimalStoryboard}"/>
+                    <VisualState x:Name="Hidden" Storyboard="{StaticResource HiddenStoryboard}" />
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <FrameworkElement x:Name="ProxyElement" Width="0" Height="0" Focusable="False" Visibility="Collapsed" DataContext="{TemplateBinding TemplateSettings}"/>
+
+                <local:AdaptPanel ClipToBounds="False">
+                <local:AdaptPanel.Clip>
+                    <RectangleGeometry  x:Name="PART_ClipRectangle">
+                        <RectangleGeometry.Transform>
+                            <TranslateTransform x:Name="ClipTransform" />
+                        </RectangleGeometry.Transform>
+                    </RectangleGeometry>
+                </local:AdaptPanel.Clip>
+                <Grid x:Name="ContentRoot" Background="{TemplateBinding Background}" Focusable="False"
+                      Height="{Binding TemplateSettings.OpenLength, RelativeSource={RelativeSource TemplatedParent}}"
+                      VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RenderTransform>
+                        <TranslateTransform x:Name="ContentTransform"/>
+                    </Grid.RenderTransform>
+                    <Grid x:Name="Content" VerticalAlignment="Top" Height="{Binding TemplateSettings.CompactLength, RelativeSource={RelativeSource TemplatedParent}}">
+                        <ContentControl Content="{TemplateBinding Content}" 
+                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Grid>
+                    <ItemsControl x:Name="PrimaryCommandsLayer" Grid.Column="1" Focusable="False"
+                                  ItemsSource="{Binding PrimaryCommands, RelativeSource={RelativeSource TemplatedParent}}"
+                                  TextOptions.TextFormattingMode="Display"
+                                  TextOptions.TextHintingMode="Animated"
+                                  TextOptions.TextRenderingMode="ClearType">
+                        <ItemsControl.ItemContainerStyle>
+                            <Style TargetType="{x:Type FrameworkElement}">
+                                <Setter Property="Width" Value="60" />
+                            </Style>
+                        </ItemsControl.ItemContainerStyle>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel IsItemsHost="True" Orientation="Horizontal">
+                                    <StackPanel.CacheMode>
+                                        <BitmapCache EnableClearType="True" SnapsToDevicePixels="True"/>
+                                    </StackPanel.CacheMode>
+                                </StackPanel>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    <ToggleButton x:Name="OverflowButton" Grid.Column="2" ClickMode="Press" IsChecked="{Binding IsOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                                              BorderThickness="0" MinHeight="16" Width="40"
+                                              VerticalContentAlignment="Top" Style="{StaticResource MoreButtonStyle}">
+                        <Grid x:Name="dotContent" Height="40" Width="40" VerticalAlignment="Top">
+                            <Rectangle Height="2" Width="20">
+                                <Rectangle.Fill>
+                                    <DrawingBrush ViewboxUnits="Absolute" ViewportUnits="Absolute" Viewport="0,0,8,8" Viewbox="0,0,8,8" TileMode="Tile">
+                                        <DrawingBrush.Drawing>
+                                            <GeometryDrawing Brush="Black" Geometry="M 0 0 L 0 2 L 2 2 L 2 0 z"/>
+                                        </DrawingBrush.Drawing>
+                                    </DrawingBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Grid>
+                    </ToggleButton>
+                </Grid>
+            </local:AdaptPanel>
+            <Canvas x:Name="SecondaryCommandsRoot" Grid.ColumnSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Right" ClipToBounds="False" Visibility="Collapsed" Focusable="False">
+                    <Grid Canvas.Top="{Binding TemplateSettings.DeviationToOpenLength, RelativeSource={RelativeSource TemplatedParent}}"
+                                  Canvas.Right="0" ClipToBounds="True">
+                        <ItemsControl x:Name="SecondaryCommandsLayer" MinWidth="120" ItemsSource="{Binding SecondaryCommands, RelativeSource={RelativeSource TemplatedParent}}"
+                                              Background="White" BorderBrush="LightGray" BorderThickness="1">
+                            <ItemsControl.RenderTransform>
+                                <TranslateTransform  Y="0"/>
+                            </ItemsControl.RenderTransform>
+                        </ItemsControl>
+                    </Grid>
+                </Canvas>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="ClosedDisplayMode" Value="Minimal" />
+                    <Condition Property="IsOpen" Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Height" TargetName="dotContent" Value="20" />
+                <Setter Property="Visibility" TargetName="PrimaryCommandsLayer" Value="Collapsed" />
+                <Setter Property="Visibility" TargetName="Content" Value="Collapsed" />
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <ControlTemplate x:Key="CommandBarBottomTemplateKey" TargetType="{x:Type local:CommandBar}">
+        <Grid x:Name="barRoot" >
+            <Grid.Resources>
+                <!--<FrameworkElement x:Key="ProxyElement" DataContext="{TemplateBinding TemplateSettings}" />-->
+                <Storyboard x:Key="OpenStoryboard">
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ContentTransform" 
+                                                                       Storyboard.TargetProperty="Y">
+                        <EasingDoubleKeyFrame KeyTime="00:00:0.12" Value="{Binding DataContext.NegativeDeviationToOpenLength, ElementName=ProxyElement}"/>
+                    </DoubleAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SecondaryCommandsRoot"
+                                                                       Storyboard.TargetProperty="Visibility">
+                        <DiscreteObjectKeyFrame KeyTime="00:00:00.10">
+                            <DiscreteObjectKeyFrame.Value>
+                                <Visibility>Visible</Visibility>
+                            </DiscreteObjectKeyFrame.Value>
+                        </DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
+                    <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.10" Storyboard.TargetName="SecondaryCommandsLayer" 
+                                                               Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)">
+                        <DiscreteDoubleKeyFrame KeyTime="00:00:00" Value="{Binding ActualHeight, ElementName=SecondaryCommandsLayer}"/>
+                        <SplineDoubleKeyFrame KeyTime="00:00:0.35" KeySpline="0.1,0.9 0.2,1.0"  Value="0"/>
+                    </DoubleAnimationUsingKeyFrames>
+                </Storyboard>
+                <Storyboard x:Key="CloseStoryboard">
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ContentTransform" 
+                                                                       Storyboard.TargetProperty="Y">
+                        <EasingDoubleKeyFrame x:Name="CompactFrame" KeyTime="00:00:00.10" Value="0"/>
+                    </DoubleAnimationUsingKeyFrames>
+                </Storyboard>
+            </Grid.Resources>
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="OpenStates">
+                    <VisualState x:Name="Open" Storyboard="{StaticResource OpenStoryboard}"/>
+                    <VisualState x:Name="Compact" Storyboard="{StaticResource CloseStoryboard}" />
+                    <VisualState x:Name="Minimal" Storyboard="{StaticResource CloseStoryboard}"/>
+                    <VisualState x:Name="Hidden" Storyboard="{StaticResource CloseStoryboard}" />
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <FrameworkElement x:Name="ProxyElement" Width="0" Height="0" Focusable="False" Visibility="Collapsed" DataContext="{TemplateBinding TemplateSettings}"/>
+            <local:AdaptPanel ClipToBounds="False">
+                <local:AdaptPanel.Clip>
+                    <RectangleGeometry x:Name="PART_ClipRectangle">
+                        <RectangleGeometry.Transform>
+                            <TranslateTransform x:Name="ClipTransform"/>
+                        </RectangleGeometry.Transform>
+                    </RectangleGeometry>
+                </local:AdaptPanel.Clip>
+                <Grid x:Name="ContentRoot" Background="{TemplateBinding Background}"
+                      Height="{Binding TemplateSettings.OpenLength, RelativeSource={RelativeSource TemplatedParent}}"
+                      VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RenderTransform>
+                        <TranslateTransform x:Name="ContentTransform"/>
+                    </Grid.RenderTransform>
+                    <Grid x:Name="Content" VerticalAlignment="Top" Height="{Binding TemplateSettings.CompactLength, RelativeSource={RelativeSource TemplatedParent}}">
+                        <ContentControl Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Grid>
+                    <ItemsControl x:Name="PrimaryCommandsLayer" Grid.Column="1"
+                                              ItemsSource="{Binding PrimaryCommands, RelativeSource={RelativeSource TemplatedParent}}"
+                                              TextOptions.TextFormattingMode="Display"
+                                              TextOptions.TextHintingMode="Animated"
+                                              TextOptions.TextRenderingMode="ClearType">
+                        <ItemsControl.ItemContainerStyle>
+                            <Style TargetType="{x:Type FrameworkElement}">
+                                <Setter Property="MinWidth" Value="60" />
+                            </Style>
+                        </ItemsControl.ItemContainerStyle>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel IsItemsHost="True" Orientation="Horizontal">
+                                    <StackPanel.CacheMode>
+                                        <BitmapCache EnableClearType="True" SnapsToDevicePixels="True"/>
+                                    </StackPanel.CacheMode>
+                                </StackPanel>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    <ToggleButton x:Name="OverflowButton" Grid.Column="2" ClickMode="Press" IsChecked="{Binding IsOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                                              BorderThickness="0" MinHeight="16" Width="40"
+                                              VerticalContentAlignment="Top" Style="{StaticResource MoreButtonStyle}">
+                        <Grid x:Name="dotContent" Height="40" Width="40" VerticalAlignment="Top">
+                            <Rectangle Height="2" Width="20">
+                                <Rectangle.Fill>
+                                    <DrawingBrush ViewboxUnits="Absolute" ViewportUnits="Absolute" Viewport="0,0,8,8" Viewbox="0,0,8,8" TileMode="Tile">
+                                        <DrawingBrush.Drawing>
+                                            <GeometryDrawing Brush="Black" Geometry="M 0 0 L 0 2 L 2 2 L 2 0 z"/>
+                                        </DrawingBrush.Drawing>
+                                    </DrawingBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Grid>
+                    </ToggleButton>
+                </Grid>
+            </local:AdaptPanel>
+            <Canvas x:Name="SecondaryCommandsRoot" Grid.ColumnSpan="3" VerticalAlignment="Top" HorizontalAlignment="Right" ClipToBounds="False" Visibility="Collapsed">
+                <Grid Canvas.Bottom="{Binding TemplateSettings.DeviationToOpenLength, RelativeSource={RelativeSource TemplatedParent}}" 
+                      Canvas.Right="0" ClipToBounds="True">
+                    <ItemsControl x:Name="SecondaryCommandsLayer" MinWidth="120" ItemsSource="{Binding SecondaryCommands, RelativeSource={RelativeSource TemplatedParent}}"
+                                              Background="White" BorderBrush="LightGray" BorderThickness="1">
+                        <ItemsControl.RenderTransform>
+                            <TranslateTransform  Y="0"/>
+                        </ItemsControl.RenderTransform>
+                    </ItemsControl>
+                </Grid>
+            </Canvas>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="ClosedDisplayMode" Value="Minimal" />
+                    <Condition Property="IsOpen" Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Height" TargetName="dotContent" Value="20" />
+                <Setter Property="Visibility" TargetName="PrimaryCommandsLayer" Value="Collapsed" />
+                <Setter Property="Visibility" TargetName="Content" Value="Collapsed" />
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style TargetType="{x:Type local:CommandBar}">
+        <Setter Property="Template" Value="{StaticResource CommandBarBottomTemplateKey}"/>
+        <Style.Triggers>
+            <Trigger Property="Place" Value="Top">
+                <Setter Property="Template" Value="{StaticResource CommandBarTopTemplateKey}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+</ResourceDictionary>

@@ -1,0 +1,4 @@
+﻿namespace-----System.Windows.Interactivity
+class--------Behavior
+what-----------Detaching not invoke
+search-------------https://github.com/Microsoft/XamlBehaviors/blob/master/src/BehaviorsSDKManaged/Microsoft.Xaml.Interactivity/Interaction.cs

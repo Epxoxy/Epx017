@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="testString" xml:space="preserve">
+    <value>吓到我们的新谷歌翻译，学者却这样评价它2016-10-2 6:56    雷锋网责编：远洋本周三，谷歌发布新版神经机器翻译（GNMT）系统，并表示使用了最先进的训练技术，翻译质量会有较大提升。虽然谷歌一直都在将神经网络技术用于自己的人工智能产品，但好像自Alphago以后，“神经”二字特别敏感，新的翻译系统也引起了不少争论。现在流传比较广的评价来自从事翻译职业的网友：作为翻译，看到这个新闻的时候，我理解了18世纪纺织工人看到蒸汽机时的忧虑与恐惧。这种兼具历史感与行业认知的评价特别感染人。不过凡事要客观看待，雷锋网亲测后发现，翻译质量比传统的机翻体验好上不少，但仍不到实用的地步。如果你想知道“如何评价”这件事，或许可以看看加拿大国家研究委员会NRC多语言处理研究组陈博兴研究员的点评。他1998年本科毕业于北京大学，2003年博士毕业于中国科学院声学研究所，主要研究兴趣是自然语言处理、机器翻译和机器学习。以下是点评内容：这两天，“受邀”在几个微信群里点评刷遍微博和微信朋友圈的关于谷歌神经网络机器翻译的文章和报道。我的点评如下：首先，谷歌所做的事情是将这两年学术界神经网络机器翻译的多种最新技术做了一个整合集成，利用他们强大的工程能力和计算能力，搭了一个很好的系统。他们最好的单系统比我利用Open source训练的系统，在同一个数据集上要好了大概3个多BLEU。3个多BLEU的差距，如果由人来判断，仔细看的话，是能感觉到的，但是也就是一个小的进步，谈不上突破什么的。对于他们的文章，我觉得有两个遗憾的地方：1.所采用的技术都是之前发表过的，没有全新的技术（对谷歌的要求自然要高一点）2.如果我们有那么大的计算和工程能力，以及那么多人力可以投入，即使只是整合已有技术，我觉得我们可以做得更好，比如我会加上清华大学刘洋他们首先采用的最小风险训练方法来进行训练，等等。其次，媒体往往是无知的，为了博人眼球而什么话都敢说的。甚至有媒体想当然地说谷歌是把AlphaGo神经网络应用到谷歌翻译。拜托，这是完全不同的神经网络。什么都不懂就敢胡乱开牙是媒体，尤其是国内媒体的通病，懒得去纠正他们了。那么谷歌翻译达到了人类翻译的水准吗？那要看在什么语言，什么领域，什么任务上。举个极端的例子，如果只是翻译单个单词，我们99.99%的人都比不过电子词典。如果只是翻译比较短的句子，训练语料里覆盖得全而且次数多的句子，机器翻译自然有优势。但要是一个全面的比较，机器翻译跟专业译员的距离相差还是很大的。其实所有的人工智能都是同样的，什么人脸识别超过人类，语义理解超过人类等等，下次再碰到这么说的公司或者媒体，别理他！活不好好干，就知道忽悠人。最后的问题，来源于一个这次刷屏的标题，“作为一个翻译，我理解18世纪纺织工人看到蒸汽机的忧虑和恐惧”。且不说这个类比不恰当，就算恰当，没看见19、20世纪的纺织工人数量比18世纪高了不止一个数量级吗。作为一个18世纪的纺织工人你担心什么啊。翻译也是这样，机器翻译在可以预见的未来取代不了人工翻译。尤其是现在的人工翻译的市场跟机器翻译的市场基本上不重合，人工翻译对准的是高端市场，要求很精准的翻译需求，而机器翻译则是：1.要求不那么精准的翻译情景，比如旅游，比如网页浏览，比如信息监控等等。2.机器翻译帮助专业翻译人员提高效率。如果中国对外交流的程度达到欧美现在的程度，那么中国的高端翻译市场将会是无比巨大的。有志于从事翻译的同学，放心大胆地进来吧。当然了，作为一个翻译，如果你到现在还装作看不见机器翻译的进步，还在完全排斥机器翻译，那么被市场淘汰就怨不得别人了。</value>
+  </data>
+</root>

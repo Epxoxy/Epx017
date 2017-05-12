@@ -1,0 +1,194 @@
+﻿<Page x:Class="Example.BasicColorsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Example"
+      xmlns:xoxy="http://Epxoxy.org/controls"
+      Title="Colors"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="800">
+    <Page.Resources>
+        <Style x:Key="cardStyle" TargetType="{x:Type ContentControl}">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ContentControl}">
+                        <Border BorderBrush="#eeeeee" BorderThickness="1" Background="White">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Rectangle Fill="#eeeeee" Width="56"/>
+                                <ContentPresenter Grid.Column="1" />
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <TabControl Padding="0" Style="{StaticResource TransitioningTabControlWithShadowStyle}">
+        <TabItem Header="HOME">
+            <Grid>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="2,0">
+                    <WrapPanel Margin="20" HorizontalAlignment="Center">
+                        <ContentControl Style="{StaticResource cardStyle}" Margin="7,0,0,12">
+                            <ItemsControl x:Name="ConverterRoot" Width="360" Margin="12">
+                                <TextBlock Text="DO CONVERT" FontSize="20" Foreground="#00897b" Margin="0,0,0,4"/>
+                                <TextBox Style="{StaticResource FloatingPlaceHolderTextBoxStyle}" 
+                                 Padding="0,4" Margin="3"
+                     Text="{Binding StringValue}"
+                     BorderThickness="0,0,0,1"
+                     Background="{x:Null}"
+                     xoxy:PlaceHolder.Content="Color text"
+                     xoxy:PlaceHolder.UnderlineBrush="SkyBlue"/>
+                                <TextBox Style="{StaticResource FloatingPlaceHolderTextBoxStyle}" 
+                     Padding="0,4" Margin="3"
+                     Text="{Binding RGB}"
+                     BorderThickness="0,0,0,1"
+                     Background="{x:Null}"
+                     xoxy:PlaceHolder.Content="RGB"
+                     xoxy:PlaceHolder.UnderlineBrush="SkyBlue"/>
+                                <Rectangle Height="10" Fill="{Binding Brush}" Margin="4"/>
+                            </ItemsControl>
+                        </ContentControl>
+                        <ContentControl Style="{StaticResource cardStyle}" Margin="7,0,0,12">
+                            <ItemsControl Width="360" Margin="12">
+                                <TextBlock Text="BRUSH" FontSize="20" Foreground="#00897b" Margin="0,0,0,4"/>
+                                <TextBlock Text="The values of Brushes's member" Foreground="#757575" FontSize="14" Margin="0,7"/>
+                                <TextBlock Text="View and design" Foreground="#757575" FontSize="14" Margin="0,7"/>
+                            </ItemsControl>
+                        </ContentControl>
+                        <ContentControl Style="{StaticResource cardStyle}" Margin="7,0,0,12">
+                            <ItemsControl Width="360" Margin="12">
+                                <TextBlock Text="SYSTEM" FontSize="20" Foreground="#00897b" Margin="0,0,0,4"/>
+                                <TextBlock Text="System static colors by enum of SystemColors" Foreground="#757575" FontSize="14" Margin="0,7"/>
+                                <TextBlock Text="View and design" Foreground="#757575" FontSize="14" Margin="0,7"/>
+                            </ItemsControl>
+                        </ContentControl>
+                        <ContentControl Style="{StaticResource cardStyle}" Margin="7,0,0,12">
+                            <ItemsControl Width="360" Margin="12">
+                                <TextBlock Text="MATERIAL" FontSize="20" Foreground="#00897b" Margin="0,0,0,4"/>
+                                <TextBlock Text="A copy of material design color" Foreground="#757575" FontSize="14" Margin="0,7"/>
+                                <TextBlock Text="View and design" Foreground="#757575" FontSize="14" Margin="0,7"/>
+                            </ItemsControl>
+                        </ContentControl>
+                    </WrapPanel>
+                </ScrollViewer>
+            </Grid>
+        </TabItem>
+        <TabItem Header="BRUSHES">
+            <DataGrid x:Name="BrushesDataGrid" Grid.Column="1" Grid.RowSpan="2" BorderThickness="0" BorderBrush="DimGray" SelectionUnit="Cell" SelectionMode="Single" CanUserAddRows="False" AutoGenerateColumns="False"
+                      xoxy:DataGridHelper.AutoGeneratedId="True" Style="{StaticResource LightDataGridStyle}">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Name" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"  Margin="4"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Brush" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Rectangle Height="10" Width="40" Fill="{Binding Brush}" Margin="4"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn  Header="RGB" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding RGB}"  Margin="4"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="StringValue" Binding="{Binding Brush}" Width="*">
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </TabItem>
+        <TabItem Header="SYSTEM">
+            <DataGrid x:Name="SysColorsDataGrid" Grid.Column="1" Grid.RowSpan="2" BorderThickness="0" BorderBrush="DimGray" SelectionUnit="Cell" SelectionMode="Single" CanUserAddRows="False" AutoGenerateColumns="False"
+                  xoxy:DataGridHelper.AutoGeneratedId="True" Style="{StaticResource LightDataGridStyle}">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Name" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"  Margin="4"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Brush" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Rectangle Height="10" Width="40" Fill="{Binding Brush}" Margin="4"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn  Header="RGB" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding RGB}"  Margin="4"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="StringValue" Binding="{Binding Brush}" Width="*">
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </TabItem>
+        <TabItem Header="MATERIAL">
+            <Grid>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="2,0">
+                    <ItemsControl ItemsSource="{x:Static local:ColorGroupHelper.Basic}" Margin="0,2" HorizontalAlignment="Center">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel IsItemsHost="True"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid MinWidth="240" Margin="6">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="80"/>
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Rectangle Fill="White" Grid.RowSpan="2"/>
+                                    <Grid Margin="0,0,0,2">
+                                        <Rectangle Fill="{Binding Main.Brush}" Height="80"/>
+                                        <TextBlock Text="{Binding Main.Name}" HorizontalAlignment="Left"
+                                                   VerticalAlignment="Top" Margin="7,7" Foreground="White"
+                                                   FontWeight="Bold" FontFamily="Consolas"
+                                                   FontSize="14"/>
+                                        <TextBox IsReadOnly="True" Text="{Binding Main.Brush}" HorizontalAlignment="Right"
+                                                 Background="{x:Null}" BorderThickness="0"
+                                                 VerticalAlignment="Bottom" Margin="7,7" Foreground="White"
+                                                 FontSize="14" FontWeight="Bold" FontFamily="Consolas"/>
+                                    </Grid>
+                                    <ItemsControl Grid.Row="1" ItemsSource="{Binding Colors, IsAsync=True}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Rectangle Fill="{Binding}" Height="36"/>
+                                                    <TextBox IsReadOnly="True" Text="{Binding .,Mode=OneWay}" HorizontalAlignment="Right"
+                                                             VerticalAlignment="Center" Margin="7,0"
+                                                             Background="{x:Null}" BorderThickness="0"
+                                                             FontWeight="Bold" FontFamily="Consolas" FontSize="14"
+                                                             Foreground="{Binding ., Converter={StaticResource backtofore}}"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </TabItem>
+    </TabControl>
+</Page>

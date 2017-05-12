@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="Example.RichTextEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Example"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style x:Key="EditAreaStyle" TargetType="RichTextBox">
+            <Setter Property="AcceptsTab" Value="True" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="LightGray" />
+            <Setter Property="TextBlock.LineHeight" Value="1" />
+            <Setter Property="FontFamily" Value="Verdana" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="VerticalScrollBarVisibility" Value="Visible" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Button Command="EditingCommands.ToggleBold" />
+        <RichTextBox x:Name="mainRTB"/>
+        <Grid Margin="7">
+            <ItemsControl>
+                <Border Height="30" BorderBrush="#b8c3cb" BorderThickness="1" CornerRadius="3" SnapsToDevicePixels="True">
+                    <Grid>
+                        <Rectangle Fill="#b8c3cb" />
+                        <StackPanel Orientation="Horizontal" TextBlock.FontSize="18">
+                            <Button Margin="0,0,1,0" Background="#f2f4f8" BorderThickness="0" FontFamily="Consolas" Content="B" Width="40" />
+                            <Button Margin="0,0,1,0" Background="#f2f4f8" BorderThickness="0" FontFamily="Consolas" Content="I" Width="40" FontStyle="Italic"/>
+                            <Button Margin="0,0,1,0" Background="#f2f4f8" BorderThickness="0" FontFamily="Consolas" Width="40">
+                                <TextBlock Text="U" TextDecorations="Underline"/>
+                            </Button>
+                            <Button Margin="0,0,1,0" Background="#f2f4f8" BorderThickness="0" FontFamily="Consolas" Content="A" Width="40"/>
+                            <Button Margin="0,0,1,0" Background="#f2f4f8" BorderThickness="0" Width="40">
+                                <Path Stretch="UniformToFill" Height="16" Width="16" Data="M0,0 12,0z M0,3 12,3z M0,6 12,6z M0,9 12,9z M0,12 12,12z" Stroke="DimGray" StrokeThickness="1">
+                                    <Path.CacheMode>
+                                        <BitmapCache SnapsToDevicePixels="True" />
+                                    </Path.CacheMode>
+                                </Path>
+                            </Button>
+                            <Button Margin="0,0,1,0" Background="#f2f4f8" BorderThickness="0" Width="40">
+                                <Path Height="16" Width="16" Data="M0,0 12,0z M0,3 12,3z M0,6 12,6z M0,9 12,9z M0,12 12,12z" Stroke="DimGray" StrokeThickness="1">
+                                    <Path.CacheMode>
+                                        <BitmapCache SnapsToDevicePixels="True" />
+                                    </Path.CacheMode>
+                                </Path>
+                            </Button>
+                            <ToggleButton Background="#f2f4f8" BorderThickness="0" Width="40">
+                            </ToggleButton>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <RichTextBox Height="100"/>
+            </ItemsControl>
+        </Grid>
+    </Grid>
+    <Control.InputBindings>
+        <KeyBinding Modifiers="Control" Key="N" 
+                    Command="{Binding NewFileCommand}" 
+                    CommandParameter="{Binding ElementName=mainRTB}" />
+
+        <KeyBinding Modifiers="Control" Key="O" 
+                    Command="{Binding OpenFileCommand}"
+                    CommandParameter="{Binding ElementName=mainRTB}" />
+
+        <KeyBinding Modifiers="Control" Key="S" 
+                    Command="{Binding SaveCommand}" 
+                    CommandParameter="{Binding ElementName=mainRTB}" />
+
+        <KeyBinding Modifiers="Control" Key="H" 
+                    Command="{Binding ShowAboutCommand}" 
+                    CommandParameter="{Binding ElementName=mainRTB}" />
+    </Control.InputBindings>
+</UserControl>

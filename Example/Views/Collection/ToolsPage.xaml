@@ -1,0 +1,306 @@
+﻿<Page x:Class="Example.ToolsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:xoxy="http://Epxoxy.org/controls"
+      xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
+      xmlns:local="clr-namespace:Example"
+      mc:Ignorable="d" 
+      d:DesignHeight="400" d:DesignWidth="600"
+      Title="Tools">
+    <Page.Resources>
+        <Style x:Key="HoriItemscontrol" TargetType="{x:Type ItemsControl}">
+            <Setter Property="Background" Value="{x:Null}" />
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style >
+                        <Setter Property="Control.BorderThickness" Value="0" />
+                        <Setter Property="Control.Margin" Value="4" />
+                        <Setter Property="Control.Padding" Value="7" />
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="VerItemscontrol" TargetType="{x:Type ItemsControl}">
+            <Setter Property="Background" Value="{x:Null}" />
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True" Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="Margin" Value="4" />
+                        <Setter Property="Padding" Value="7" />
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TabItemStyle1" TargetType="{x:Type TabItem}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Foreground" Value="DimGray"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="4,4,12,4"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid x:Name="templateRoot" SnapsToDevicePixels="true" Background="{TemplateBinding Background}">
+                            <ContentPresenter x:Name="contentPresenter" ContentSource="Header" Focusable="False" HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="True"/>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Foreground" Value="Black" />
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="True"/>
+                                    <Condition Property="IsMouseOver" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Foreground" Value="Black" />
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="False"/>
+                                    <Condition Property="IsMouseOver" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Foreground" Value="DimGray" />
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="False"/>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Foreground" Value="Black" />
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <TabControl Padding="0" Style="{StaticResource TransitioningTabControlWithShadowStyle}">
+            <TabItem Header="UNICODE" Padding="12,7">
+                <Grid Margin="10,7">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <ScrollViewer MaxHeight="80" MinHeight="40" Margin="4,0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Input" Foreground="DimGray" Margin="0,2"/>
+                            <TextBox Grid.Row="1" x:Name="SourceTextBox" TextWrapping="Wrap" BorderThickness="0,0,0,1"
+                                     Background="{x:Null}" />
+                        </Grid>
+                    </ScrollViewer>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TabControl BorderThickness="0" ItemContainerStyle="{StaticResource TabItemStyle1}" Background="{x:Null}">
+                            <TabItem Header="UNICODE">
+                                <ItemsControl Style="{StaticResource HoriItemscontrol}">
+                                    <Button x:Name="UTC" CommandParameter="UTC" Content="Unicode to Chinese" Click="Func_Click" />
+                                    <Button x:Name="CTU" CommandParameter="CTU" Content="Chinese to Unicode"  Click="Func_Click"/>
+                                </ItemsControl>
+                            </TabItem>
+                            <TabItem Header="ASCII">
+                                <ItemsControl Style="{StaticResource HoriItemscontrol}">
+                                    <Button x:Name="ATU" CommandParameter="ATU" Content="ASCII to Unicode" Click="Func_Click" />
+                                    <Button x:Name="UTA" CommandParameter="UTA" Content="Unicode to ASCII"  Click="Func_Click"/>
+                                </ItemsControl>
+                            </TabItem>
+                            <TabItem Header="UTF8">
+                                <ItemsControl Style="{StaticResource HoriItemscontrol}">
+                                    <Button x:Name="CTUTF8" CommandParameter="CTUTF8" Content="UTF8 to Chinese" Click="Func_Click" />
+                                    <Button x:Name="UTF8TC" CommandParameter="UTF8TC" Content="Chinese to UTF8"  Click="Func_Click"/>
+                                </ItemsControl>
+                            </TabItem>
+                            <TabItem Header="URL">
+                                <ItemsControl Style="{StaticResource HoriItemscontrol}">
+                                    <Button x:Name="Encode" CommandParameter="Encode" Content="Encode" Click="Func_Click" />
+                                    <Button x:Name="Decode" CommandParameter="Decode" Content="Decode"  Click="Func_Click"/>
+                                    <!--<Button x:Name="Ecoding" Content="Ecoding"  />-->
+                                    <ComboBox x:Name="encodingCb" Width="80" BorderThickness="1" SelectionChanged="encodingCb_SelectionChanged" Margin="4" FontSize="16"
+                                              ItemsSource="{Binding}" DisplayMemberPath="{Binding String}" Style="{StaticResource ComboBoxStyle}">
+                                    </ComboBox>
+                                </ItemsControl>
+                            </TabItem>
+                            <TabItem Header="ASCII/NATIVE">
+                                <ItemsControl Style="{StaticResource HoriItemscontrol}">
+                                    <Button x:Name="ATN" CommandParameter="ATN" Content="ASCII to NATIVE" Click="Func_Click" />
+                                    <Button x:Name="NTA" CommandParameter="NTA" Content="NATIVE to ASCII"  Click="Func_Click"/>
+                                </ItemsControl>
+                            </TabItem>
+                        </TabControl>
+                        <ItemsControl Grid.Column="1" Style="{StaticResource VerItemscontrol}">
+                            <Button x:Name="ClearInput" CommandParameter="ClearInput" Content="Clear input" Click="Clear_Click"/>
+                            <Button x:Name="ClearResult" CommandParameter="ClearResult" Content="Clear result" Click="Clear_Click"/>
+                        </ItemsControl>
+                    </Grid>
+                    <ScrollViewer Grid.Row="2" Margin="4,0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Result" Foreground="DimGray" Margin="0,2"/>
+                            <TextBox Grid.Row="1" VerticalAlignment="Top" x:Name="ResultTextBox" 
+                                     TextWrapping="Wrap" BorderThickness="0"
+                                     IsReadOnly="True" Background="{x:Null}"/>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+            <TabItem Header="COUNTOR">
+                <Grid Margin="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="180" />
+                    </Grid.ColumnDefinitions>
+                    <Border Padding="4" BorderThickness="0,0,1,0" BorderBrush="LightGray">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Body" Foreground="DimGray" Margin="0,0,0,2"/>
+                            <TextBox x:Name="countContent" x:FieldModifier="private" 
+                                     AcceptsReturn="True" Grid.Row="1" Background="Transparent"
+                                     VirtualizingPanel.IsVirtualizing="True" 
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                     VirtualizingPanel.VirtualizationMode="Recycling" 
+                                     VirtualizingPanel.CacheLengthUnit="Page"
+                                     BorderThickness="0" TextWrapping="WrapWithOverflow"/>
+                        </Grid>
+                    </Border>
+                    <Canvas Grid.Column="1" Background="White">
+                        <Grid Canvas.Left="4" Canvas.Top="4">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="FontSize" Foreground="DimGray"/>
+                            <TextBox Grid.Row="1" Text="{Binding FontSize, ElementName=countContent, FallbackValue=12, Mode=TwoWay}" 
+                                         Width="172"  BorderBrush="LightGray" BorderThickness="0,0,0,1"/>
+                        </Grid>
+                        <ItemsControl BorderThickness="0,2,0,0" Canvas.Bottom="64" Width="180">
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Width" Value="60" />
+                                    <Setter Property="Height" Value="48" />
+                                    <Setter Property="Padding" Value="7" />
+                                    <Setter Property="TextAlignment" Value="Center" />
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <TextBlock>
+                                <Run Text="Char&#x0a;" />
+                                <Run x:Name="charRun" x:FieldModifier="private"/>
+                            </TextBlock>
+                            <TextBlock >
+                                <Run Text="Words&#x0a;" />
+                                <Run x:Name="wordRun" x:FieldModifier="private" />
+                            </TextBlock>
+                            <TextBlock >
+                                <Run Text="Symbols&#x0a;" />
+                                <Run x:Name="puncRun" x:FieldModifier="private" />
+                            </TextBlock>
+                            <TextBlock >
+                                <Run Text="Chinese&#x0a;" />
+                                <Run x:Name="chineseRun" x:FieldModifier="private" />
+                            </TextBlock>
+                            <TextBlock >
+                                <Run Text="Letter&#x0a;" />
+                                <Run x:Name="letterRun" x:FieldModifier="private" />
+                            </TextBlock>
+                            <TextBlock >
+                                <Run Text="Number&#x0a;" />
+                                <Run x:Name="digitRun" x:FieldModifier="private" />
+                            </TextBlock>
+                        </ItemsControl>
+                        <Button Canvas.Bottom="31" Width="180" Content="Count" Margin="1" Padding="14,7" Click="CountBtnClick"
+                                Style="{StaticResource FloatBtnStyle}"/>
+                        <Button AllowDrop="True" Canvas.Bottom="0" Width="180" Content="Clear" Margin="1" Padding="14,7" Click="ClearBtnClick"
+                                Style="{StaticResource FloatBtnStyle}"/>
+                    </Canvas>
+                </Grid>
+            </TabItem>
+            <TabItem Header="ASCII">
+                <ItemsControl Padding="10,4">
+                    <TextBox x:Name="asciiSourceTB" x:FieldModifier="private" Background="{x:Null}"
+                             FontSize="15" xoxy:PlaceHolder.Content="ASCII codes"
+                             Style="{StaticResource FloatingPlaceHolderTextBoxStyle}"
+                             AcceptsReturn="True" Margin="0,4"
+                             Text="{Binding AsciiSource}" MaxHeight="200"
+                             TextWrapping="Wrap" BorderBrush="#3DA254" VirtualizingPanel.VirtualizationMode="Recycling"
+                             VirtualizingPanel.CacheLengthUnit="Page"
+                             ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                             BorderThickness="0,0,0,1" ScrollViewer.VerticalScrollBarVisibility="Auto" VirtualizingPanel.IsVirtualizing="True">
+                    </TextBox>
+                    <TextBox x:Name="asciiStringTB" x:FieldModifier="private" Background="{x:Null}"
+                             FontSize="15" xoxy:PlaceHolder.Content="String value" AcceptsReturn="True" 
+                             Style="{StaticResource FloatingPlaceHolderTextBoxStyle}"
+                             Margin="0,4" BorderBrush="#3DA254" BorderThickness="0,0,0,1"
+                             Text="{Binding AsciiResult}" MaxHeight="200"
+                             TextWrapping="Wrap" VirtualizingPanel.VirtualizationMode="Recycling"
+                             VirtualizingPanel.CacheLengthUnit="Page"
+                             ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto" VirtualizingPanel.IsVirtualizing="True">
+                    </TextBox>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,7">
+                        <Button Content="ASCII2String" Grid.Row="1" Padding="7" Margin="0,4,4,4"
+                                Style="{StaticResource FloatBtnStyle}"
+                                Click="Ascii2StringClick"/>
+                        <Button Content="String2ASCII" Grid.Row="1" Padding="7" Margin="4,4"
+                                Style="{StaticResource FloatBtnStyle}"
+                                Click="String2AsciiClick"/>
+                    </StackPanel>
+                </ItemsControl>
+            </TabItem>
+            <TabItem Header="REPLACE">
+                <Grid>
+                    <ItemsControl Padding="7">
+                        <TextBlock Text="Format" Margin="0,10,0,0"/>
+                        <TextBox Background="{x:Null}" BorderThickness="0,0,0,1"/>
+                        <TextBlock Text="Parameter" Margin="0,10,0,0"/>
+                        <TextBox Background="{x:Null}" BorderThickness="0,0,0,1"/>
+                        <Button Content="Run" Style="{StaticResource FloatBtnStyle}" HorizontalAlignment="Left"
+                                Padding="20,7" Margin="0,4"/>
+                    </ItemsControl>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>

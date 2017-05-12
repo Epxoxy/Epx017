@@ -1,0 +1,160 @@
+﻿<Window x:Class="Example.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:epx="http://Epxoxy.org/controls"
+        FontFamily="{StaticResource NotoSansFont}"
+        x:Name="win" mc:Ignorable="d"
+        Title="MainWindow"
+        Background="White"
+        BorderBrush="White"
+        MinHeight="200" MinWidth="360"
+        epx:WindowExt.TitleBarColor="Transparent"
+        epx:WindowExt.TitleBar="{DynamicResource BackBtn}" >
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo x:Name="TaskBar">
+            <TaskbarItemInfo.ThumbButtonInfos>
+                <ThumbButtonInfoCollection>
+                    <ThumbButtonInfo x:Name="ProgressState" DismissWhenClicked="False"
+                                     Click="ProgressState_Click" Description="Test Progress"/>
+                </ThumbButtonInfoCollection>
+            </TaskbarItemInfo.ThumbButtonInfos>
+        </TaskbarItemInfo>
+    </Window.TaskbarItemInfo>
+    <!--<WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="1" CaptionHeight="0" NonClientFrameEdges="None" UseAeroCaptionButtons="False"/>
+    </WindowChrome.WindowChrome>-->
+    <Window.Resources>
+        <Color x:Key="MouseOver.Background.Color" A="255" R="229" G="229" B="229" />
+        <Color x:Key="Static.Background.Color" A="0" R="255" G="255" B="255" />
+        <Color x:Key="Waring.MouseOver.Background.Color" A="255" R="232" G="17" B="35" />
+        <SolidColorBrush x:Key="TitleText.Disable.Foreground" Color="#dbdbdb" />
+        <SolidColorBrush x:Key="TitleText.Foreground" Color="#3d3d3d" />
+        <Style x:Key="MaxMinBtnStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" Duration="0:0:0.1" To="{StaticResource Static.Background.Color}" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="(ToggleButton.Background).(SolidColorBrush.Color)" Duration="0:0:0.1" To="{StaticResource MouseOver.Background.Color}" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Path x:Name="path" Data="M0,0 10,0 10,10 0,10Z" Stroke="{TemplateBinding Foreground}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Path.CacheMode>
+                                    <BitmapCache EnableClearType="True" SnapsToDevicePixels="True" />
+                                </Path.CacheMode>
+                            </Path>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Data" TargetName="path" Value="M0,2 8,2 8,10 0,10 Z M2,2 2,0 10,0 10,8 8,8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MinBtnStyle" TargetType="{x:Type Button}">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" Duration="0:0:0.1" To="{StaticResource Static.Background.Color}" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" Duration="0:0:0.1" To="{StaticResource MouseOver.Background.Color}" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Line x:Name="content" X1="0" X2="12" Y1="0" Y2="0" Stroke="{TemplateBinding Foreground}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Button x:Key="BackBtn" Background="#f4f4f4"
+                           Command="{x:Static NavigationCommands.BrowseBack}">
+            <epx:IconItem Icon="&#xe786;" Size="16"/>
+        </Button>
+        <!--CommandTarget="{Binding ElementName=navigationFrame}"-->
+    </Window.Resources>
+    <!--<Window.Template>
+        <ControlTemplate TargetType="{x:Type Window}">
+            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                <Border x:Name="border" BorderThickness="1">
+                    <Border.BorderBrush>
+                        <SolidColorBrush Color="{x:Static SystemParameters.WindowGlassColor}" />
+                    </Border.BorderBrush>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <AdornerDecorator Grid.Row="1">
+                            <ContentPresenter/>
+                        </AdornerDecorator>
+                        <Canvas x:Name="TitleArea" Height="30" VerticalAlignment="Top"
+                            Background="{TemplateBinding epx:WindowExt.TitleBarColor}" epx:WindowExt.Draggable="True">
+                            <StackPanel Height="30" Orientation="Horizontal" epx:WindowExt.Draggable="True">
+                                <ContentControl Background="White" Content="{TemplateBinding epx:WindowExt.TitleBar}"/>
+                                <TextBlock x:Name="TitleTB" VerticalAlignment="Center" Foreground="{StaticResource TitleText.Foreground}" FontSize="16" Text="{TemplateBinding Title}" 
+                                       Margin=" 4,0" epx:WindowExt.Draggable="True"/>
+                            </StackPanel>
+                            <Button x:Name="closeBtn" Canvas.Right="0" Height="30" Width="48" Style="{StaticResource CloseBtnStyle}"
+                                    epx:WindowExt.Closeable="True"/>
+                            <ToggleButton x:Name="maxminBtn" Canvas.Right="48" Height="30" Width="48" Style="{StaticResource MaxMinBtnStyle}"
+                                          epx:WindowExt.Maximize="True"/>
+                            <Button x:Name="minBtn" Canvas.Right="96" Height="30" Width="48" Style="{StaticResource MinBtnStyle}"
+                                    epx:WindowExt.Minimize="True"/>
+                        </Canvas>
+                    </Grid>
+                </Border>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="WindowState" Value="Maximized">
+                    <Setter TargetName="maxminBtn" Property="IsChecked" Value="True" />
+                    <Setter Property="BorderThickness" Value="{x:Static SystemParameters.WindowResizeBorderThickness}"/>
+                </Trigger>
+                <Trigger Property="IsActive" Value="False">
+                    <Setter TargetName="TitleTB" Property="Foreground" Value="{StaticResource TitleText.Disable.Foreground}" />
+                    <Setter TargetName="closeBtn" Property="Foreground" Value="LightGray" />
+                    <Setter TargetName="maxminBtn" Property="Foreground" Value="LightGray" />
+                    <Setter TargetName="minBtn" Property="Foreground" Value="LightGray" />
+                    <Setter TargetName="border" Property="BorderBrush" Value="Gray" />
+                    <Setter TargetName="TitleArea" Property="Background" Value="Transparent" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Template>-->
+    <AdornerDecorator>
+        <epx:DelayFitSizeWrapper>
+            <Grid x:Name="rootgrid" Background="White" >
+                <Frame JournalEntry.KeepAlive="False" x:Name="mainFrame" Grid.Column="1" Navigating="MainFrameNavigating" NavigationUIVisibility="Hidden" ClipToBounds="True"/>
+            </Grid>
+        </epx:DelayFitSizeWrapper>
+    </AdornerDecorator>
+</Window>
