@@ -134,11 +134,19 @@
                     <local:CommandBar.PrimaryCommands>
                         <local:AppBarButton Label="Back">
                             <local:AppBarButton.Icon>
-                                <Path Stroke="Black" Data="M4,0 L0,2 4,4" Stretch="Fill" Height="18" Width="14" SnapsToDevicePixels="True"/>
+                                <Path Stroke="Black" Data="M4,0 L0,2 4,4" Stretch="Fill" Height="16" Width="12" SnapsToDevicePixels="True"/>
                             </local:AppBarButton.Icon>
                         </local:AppBarButton>
-                        <local:AppBarToggleButton Label="Toggle" Icon="Icon2"></local:AppBarToggleButton>
-                        <local:AppBarButton Label="AppBar2" Icon="Icon2"/>
+                        <local:AppBarToggleButton Label="Toggle">
+                            <local:AppBarToggleButton.Icon>
+                                <Path Stroke="Black" Data="M0,0 L1,0 1,1 0,1z" Stretch="Fill" Height="16" Width="16" SnapsToDevicePixels="True"/>
+                            </local:AppBarToggleButton.Icon>
+                        </local:AppBarToggleButton>
+                        <local:AppBarButton Label="AppBar2">
+                            <local:AppBarButton.Icon>
+                                <Ellipse Stroke="Black" Stretch="Fill" Height="18" Width="18" SnapsToDevicePixels="True"/>
+                            </local:AppBarButton.Icon>
+                        </local:AppBarButton>
                     </local:CommandBar.PrimaryCommands>
                     <local:CommandBar.SecondaryCommands>
                         <local:AppBarButton Label="Hello2" Icon="Icon2"></local:AppBarButton>
